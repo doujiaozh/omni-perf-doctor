@@ -1,0 +1,20 @@
+{
+  "name": "omni-perf-doctor",
+  "version": "0.1.0",
+  "private": true,
+  "description": "注入式 LCP 性能诊断器：浏览器采集 LCP 元素 → WebSocket → 本地 Node 服务 → AI/规则修复建议",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "demo": "node server.js"
+  },
+  "files": [
+    "inject.js",
+    "server.js",
+    "demo/"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "license": "MIT"
+}

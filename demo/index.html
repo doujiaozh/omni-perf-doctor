@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omni-Perf-Doctor · Demo 首页</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f7fa; color: #17202a;
+  }
+  header {
+    padding: 56px 24px 28px; text-align: center;
+    background: linear-gradient(160deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+  }
+  h1 { font-size: 56px; font-weight: 800; letter-spacing: .5px; }
+  header p { margin-top: 12px; font-size: 16px; color: #cfd8e3; }
+  main { max-width: 960px; margin: 0 auto; padding: 24px; }
+  .hero-slot {
+    min-height: 520px; margin: 24px 0; border-radius: 16px;
+    background: #dfe6ee; display: flex; align-items: center; justify-content: center;
+    color: #8a94a6;
+  }
+  .hero-slot img { display: block; width: 100%; height: auto; border-radius: 16px; }
+  section { margin: 32px 0; }
+  h2 { font-size: 28px; margin-bottom: 12px; }
+  p { line-height: 1.8; color: #44505f; }
+  a { color: #2c5364; }
+  footer { text-align: center; padding: 32px; color: #8a94a6; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Omni-Perf-Doctor</h1>
+  <p>一个刻意保留性能问题的演示页面：首屏大图由 JS 延迟插入，无 width/height、无 preload</p>
+</header>
+<main>
+  <div class="hero-slot" id="hero-slot">首屏大图加载中…</div>
+  <section>
+    <h2>这是做什么的？</h2>
+    <p>页面右下角的悬浮面板来自 inject.js 采集器：它用 PerformanceObserver 捕获 LCP 元素，
+      通过 WebSocket 把数据发给本地 Node 服务，服务生成修复建议后回传到面板展示。</p>
+  </section>
+  <section>
+    <h2>如何验证？</h2>
+    <p>查看运行 server.js 的控制台可看到逐条 LCP 报告与建议；访问
+      <a href="/reports">/reports</a> 查看全部历史数据。本页大图会在页面加载约 800ms 后才插入 DOM，
+      模拟「LCP 资源发现过晚」这一典型线上问题。</p>
+  </section>
+</main>
+<footer>Omni-Perf-Doctor demo · 数据仅发送到 127.0.0.1 本地服务</footer>
+<script>
+  // 模拟真实痛点：LCP 图片晚于首屏渲染才被发现（无 preload / 无显式宽高）
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var slot = document.getElementById('hero-slot');
+      slot.innerHTML = '<img src="/hero.jpg" alt="示例首屏大图" style="width:100%">';
+    }, 800);
+  });
+</script>
+<script src="/inject.js"></script>
+</body>
+</html>
