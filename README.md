@@ -109,3 +109,7 @@ omni-perf-doctor/
 - 仅支持 http / localhost / file 协议页面（https 页面需自建 wss 代理）。
 - LCP 元素的 `element` 字段由浏览器提供，个别场景（如匿名元素）可能为 `null`。
 - 跨域资源需要响应头 `Timing-Allow-Origin` 才能读取 `transferSize` 等字段。
+
+## License
+
+Released under the MIT license. See LICENSE for details.
