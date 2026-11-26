@@ -31,3 +31,11 @@ htmlcov/
 dist/
 build/
 *.so
+out/
+.next/
+coverage/
+*.tsbuildinfo
+.npm/
+.pnpm-store/
+yarn-error.log
+*.tgz
